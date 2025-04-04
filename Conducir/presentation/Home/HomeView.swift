@@ -8,8 +8,23 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var showOnboarding: Bool = false
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+                Text("Pantalla Principal")
+                      .font(.largeTitle)
+                      .padding()
+              }
+              .onAppear {
+                  withAnimation(.easeInOut(duration: 0.5)) {
+                      showOnboarding = true
+                  }
+              }
+              .sheet(isPresented: $showOnboarding) {
+                  OnboardingView()
+                      .presentationDetents([.large])
+              }
     }
 }
 
