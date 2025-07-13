@@ -47,6 +47,19 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            // Navigator
+            implementation(libs.voyager.navigator)
+
+            //Ktor
+            implementation(libs.bundles.ktor.common)
+
+            //koin
+            implementation(libs.bundles.koin.common)
+
+            //Coil
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
