@@ -1,0 +1,13 @@
+package dev.donmanuel.pexelskmp.pexelskmp
+
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.application
+
+fun main() = application {
+    Window(
+        onCloseRequest = ::exitApplication,
+        title = "pexelskmp",
+    ) {
+        App()
+    }
+}
