@@ -1,4 +1,4 @@
-package dev.donmanuel.pexelskmp.pexelskmp
+package dev.donmanuel.pexelskmp.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

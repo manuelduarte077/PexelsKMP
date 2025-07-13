@@ -1,4 +1,4 @@
-package dev.donmanuel.pexelskmp.pexelskmp
+package dev.donmanuel.pexelskmp.app
 
 interface Platform {
     val name: String

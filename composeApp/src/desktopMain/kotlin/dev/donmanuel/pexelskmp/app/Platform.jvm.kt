@@ -1,4 +1,4 @@
-package dev.donmanuel.pexelskmp.pexelskmp
+package dev.donmanuel.pexelskmp.app
 
 class JVMPlatform : Platform {
     override val name: String = "Java ${System.getProperty("java.version")}"

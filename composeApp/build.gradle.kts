@@ -72,7 +72,7 @@ kotlin {
 }
 
 android {
-    namespace = "dev.donmanuel.pexelskmp.pexelskmp"
+    namespace = "dev.donmanuel.pexelskmp.app"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

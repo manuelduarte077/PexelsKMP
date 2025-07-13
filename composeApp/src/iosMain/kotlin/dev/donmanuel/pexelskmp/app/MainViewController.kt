@@ -1,4 +1,4 @@
-package dev.donmanuel.pexelskmp.pexelskmp
+package dev.donmanuel.pexelskmp.app
 
 import androidx.compose.ui.window.ComposeUIViewController
 
