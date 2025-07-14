@@ -12,51 +12,84 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import dev.donmanuel.pexelskmp.app.domain.models.Photo
+import dev.donmanuel.pexelskmp.app.presentation.intent.PhotoIntent
+import dev.donmanuel.pexelskmp.app.presentation.viewmodel.PhotoViewModel
 
 @Composable
-fun FeatureCard() {
-    val imagesUrls = listOf(
-        "https://images.pexels.com/photos/26797335/pexels-photo-26797335.jpeg",
-        "https://images.pexels.com/photos/26797335/pexels-photo-26797335.jpeg",
-        "https://images.pexels.com/photos/26797335/pexels-photo-26797335.jpeg",
-        "https://images.pexels.com/photos/26797335/pexels-photo-26797335.jpeg",
-        "https://images.pexels.com/photos/26797335/pexels-photo-26797335.jpeg",
-        "https://images.pexels.com/photos/26797335/pexels-photo-26797335.jpeg",
-        "https://images.pexels.com/photos/26797335/pexels-photo-26797335.jpeg"
-    )
+fun FeatureCard(
+    viewModel: PhotoViewModel,
+    title: String = "Wallpapers"
+) {
+    val viewState by viewModel.viewState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.handleIntent(PhotoIntent.LoadCuratedPhotos)
+    }
 
     Column {
         Text(
-            text = "Wallpapers",
+            text = title,
             modifier = Modifier
                 .padding(start = 16.dp),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.padding(top = 8.dp))
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            itemsIndexed(imagesUrls) { index, imagesUrl ->
-                val startPadding = if (index == 0) 16.dp else 0.dp
-                FeaturedItem(
-                    url = imagesUrl,
-                    modifier = Modifier.padding(start = startPadding)
+
+        when {
+            viewState.isLoading && viewState.photos.isEmpty() -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(160.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            viewState.error != null && viewState.photos.isEmpty() -> {
+                Text(
+                    text = "Error: ${viewState.error}",
+                    modifier = Modifier.padding(16.dp),
+                    color = MaterialTheme.colorScheme.error
                 )
             }
 
-            println(imagesUrls.size)
+            viewState.photos.isNotEmpty() -> {
+                PhotosList(photos = viewState.photos)
+            }
+        }
+    }
+}
+
+@Composable
+private fun PhotosList(photos: List<Photo>) {
+    LazyRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        itemsIndexed(photos) { index, photo ->
+            val startPadding = if (index == 0) 16.dp else 0.dp
+            FeaturedItem(
+                url = photo.src.medium,
+                modifier = Modifier.padding(start = startPadding)
+            )
         }
     }
 }

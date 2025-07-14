@@ -48,9 +48,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
-            // Navigator
-            implementation(libs.voyager.navigator)
-
             //Ktor
             implementation(libs.bundles.ktor.common)
 
