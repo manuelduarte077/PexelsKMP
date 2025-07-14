@@ -4,28 +4,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import dev.donmanuel.pexelskmp.app.domain.usecases.GetCuratedPhotosUseCase
-import dev.donmanuel.pexelskmp.app.domain.usecases.SearchPhotosUseCase
 import dev.donmanuel.pexelskmp.app.presentation.screens.composables.FeatureCard
 import dev.donmanuel.pexelskmp.app.presentation.viewmodel.PhotoViewModel
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun HomeScreen() {
 
-    val getCuratedPhotosUseCase = koinInject<GetCuratedPhotosUseCase>()
-    val searchPhotosUseCase = koinInject<SearchPhotosUseCase>()
-
-    val photoViewModel = remember {
-        PhotoViewModel(
-            getCuratedPhotosUseCase = getCuratedPhotosUseCase,
-            searchPhotosUseCase = searchPhotosUseCase
-        )
-    }
+    val photoViewModel = koinViewModel<PhotoViewModel>()
 
     Column(
         modifier = Modifier

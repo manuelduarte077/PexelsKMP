@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.ktorKotlinSerialization)
 }
 
 kotlin {
@@ -37,6 +38,12 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+
+            // Android Koin
+            implementation(libs.koin.android)
+
+            // Ktor
+            implementation(libs.ktor.client.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -48,11 +55,21 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
-            //Ktor
-            implementation(libs.bundles.ktor.common)
+            // Navigation
+            implementation(libs.navigation.compose)
 
-            //koin
-            implementation(libs.bundles.koin.common)
+            // ViewModel
+            implementation(libs.viewmodel.compose)
+
+            // Koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+
+            // Ktor
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.negotiation)
+            implementation(libs.ktor.kotlin.serialization)
 
             //Coil
             implementation(libs.coil.compose)
@@ -61,9 +78,19 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        iosMain.dependencies {
+            // Ktor
+            implementation(libs.ktor.client.darwin)
+        }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+
+            implementation(libs.ktor.client.cio)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
         }
     }
 }
@@ -73,7 +100,7 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "dev.donmanuel.pexelskmp.pexelskmp"
+        applicationId = "dev.donmanuel.pexelskmp.app"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -101,11 +128,11 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "dev.donmanuel.pexelskmp.pexelskmp.MainKt"
+        mainClass = "dev.donmanuel.pexelskmp.app.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "dev.donmanuel.pexelskmp.pexelskmp"
+            packageName = "dev.donmanuel.pexelskmp.app"
             packageVersion = "1.0.0"
         }
     }

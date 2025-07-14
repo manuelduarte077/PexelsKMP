@@ -9,7 +9,6 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = "Pexels KMP",
     ) {
-        initKoin()
         App()
     }
 }
