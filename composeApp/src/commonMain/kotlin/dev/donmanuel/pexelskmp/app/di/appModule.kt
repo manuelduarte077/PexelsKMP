@@ -1,8 +1,15 @@
 package dev.donmanuel.pexelskmp.app.di
 
-val appModule = listOf(
-    networkModule,
-    repositoryModule,
-    useCaseModule,
-    viewModelModule
-)
+import org.koin.core.context.startKoin
+import org.koin.dsl.KoinAppDeclaration
+
+fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
+    startKoin {
+        appDeclaration()
+        modules(
+            networkModule,
+            repositoryModule,
+            useCaseModule,
+            viewModelModule
+        )
+    }

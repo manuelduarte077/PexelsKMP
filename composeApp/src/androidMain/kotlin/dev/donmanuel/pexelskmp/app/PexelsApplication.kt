@@ -1,18 +1,17 @@
 package dev.donmanuel.pexelskmp.app
 
 import android.app.Application
-import dev.donmanuel.pexelskmp.app.di.appModule
+import dev.donmanuel.pexelskmp.app.di.initKoin
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.component.KoinComponent
 
-
-class PexelsApplication : Application() {
+class PexelsApplication : Application(), KoinComponent {
     override fun onCreate() {
         super.onCreate()
-
-        startKoin {
+        initKoin {
+            androidLogger()
             androidContext(this@PexelsApplication)
-            modules(appModule)
         }
     }
 }
