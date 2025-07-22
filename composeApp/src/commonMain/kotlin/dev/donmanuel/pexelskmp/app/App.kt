@@ -1,13 +1,15 @@
 package dev.donmanuel.pexelskmp.app
 
 import androidx.compose.runtime.Composable
-import dev.donmanuel.pexelskmp.app.presentation.screens.SplashScreen
+import androidx.navigation.compose.rememberNavController
+import dev.donmanuel.pexelskmp.app.navigation.NavGraph
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
     PexelsTheme {
-        SplashScreen()
+        val navController = rememberNavController()
+        NavGraph(navController = navController)
     }
 }

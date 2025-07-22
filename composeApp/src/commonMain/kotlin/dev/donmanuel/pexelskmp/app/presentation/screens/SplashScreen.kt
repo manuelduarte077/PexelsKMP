@@ -16,36 +16,64 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.delay
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.ui.graphics.graphicsLayer
 import org.jetbrains.compose.resources.painterResource
 import pexelskmp.composeapp.generated.resources.Res
 import pexelskmp.composeapp.generated.resources.ic_wallpapers
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(onSplashComplete: () -> Unit = {}) {
+    var isVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(key1 = true) {
+        isVisible = true
+        delay(3000) // 3 seconds delay
+        onSplashComplete()
+    }
+
+    val alpha by animateFloatAsState(
+        targetValue = if (isVisible) 1f else 0f,
+        animationSpec = tween(durationMillis = 1000),
+        label = "fade_in"
+    )
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.background)
+            .statusBarsPadding()
+            .navigationBarsPadding()
     ) {
         Column(
             modifier = Modifier
                 .padding(16.dp)
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .graphicsLayer(alpha = alpha),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Icon(
                 painter = painterResource(Res.drawable.ic_wallpapers),
-                contentDescription = null,
+                contentDescription = "Logo",
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(100.dp),
+                tint = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -74,7 +102,8 @@ fun SplashScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(0.dp, 0.dp, 0.dp, 40.dp)
-                .align(Alignment.BottomCenter),
+                .align(Alignment.BottomCenter)
+                .graphicsLayer(alpha = alpha),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
