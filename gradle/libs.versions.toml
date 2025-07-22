@@ -11,7 +11,7 @@ kotlin = "2.2.0"
 kotlinx-coroutines = "1.10.2"
 
 # Libraries
-navigation = "2.8.0-alpha13"
+navigation = "2.9.0-beta03"
 coil = "3.2.0"
 ktor = "3.2.1"
 ktorClientCio = "3.2.1"

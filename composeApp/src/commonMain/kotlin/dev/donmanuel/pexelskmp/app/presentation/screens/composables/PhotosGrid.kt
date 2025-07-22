@@ -26,7 +26,7 @@ fun PhotosGrid(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxSize()
     ) {
-        itemsIndexed(photos) { index, photo ->
+        itemsIndexed(photos) { _, photo ->
             PhotoCard(
                 photo = photo,
                 modifier = Modifier.aspectRatio(0.75f),
