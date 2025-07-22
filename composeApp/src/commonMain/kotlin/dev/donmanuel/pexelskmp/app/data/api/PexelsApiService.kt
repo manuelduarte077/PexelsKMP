@@ -6,6 +6,8 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
+import io.ktor.client.statement.bodyAsText
+import kotlinx.serialization.SerializationException
 
 class PexelsApiService(private val httpClient: HttpClient) {
 
@@ -15,19 +17,54 @@ class PexelsApiService(private val httpClient: HttpClient) {
     }
 
     suspend fun getCuratedPhotos(page: Int, perPage: Int): PexelsResponse {
-        return httpClient.get("$BASE_URL/curated") {
-            header("Authorization", API_KEY)
-            parameter("page", page)
-            parameter("per_page", perPage)
-        }.body()
+        return try {
+            val response = httpClient.get("$BASE_URL/curated") {
+                header("Authorization", API_KEY)
+                parameter("page", page)
+                parameter("per_page", perPage)
+            }
+
+            response.body<PexelsResponse>()
+        } catch (e: SerializationException) {
+            try {
+                val rawResponse = httpClient.get("$BASE_URL/curated") {
+                    header("Authorization", API_KEY)
+                    parameter("page", page)
+                    parameter("per_page", perPage)
+                }
+                println("JSON raw: ${rawResponse.bodyAsText()}")
+            } catch (debugException: Exception) {
+                println("Error al obtener JSON raw: ${debugException.message}")
+            }
+            throw e
+        }
     }
 
     suspend fun searchPhotos(query: String, page: Int, perPage: Int): PexelsResponse {
-        return httpClient.get("$BASE_URL/search") {
-            header("Authorization", API_KEY)
-            parameter("query", query)
-            parameter("page", page)
-            parameter("per_page", perPage)
-        }.body()
+        return try {
+            val response = httpClient.get("$BASE_URL/search") {
+                header("Authorization", API_KEY)
+                parameter("query", query)
+                parameter("page", page)
+                parameter("per_page", perPage)
+            }
+
+            response.body<PexelsResponse>()
+        } catch (e: SerializationException) {
+            println("Error de serialización en searchPhotos: ${e.message}")
+            try {
+                val rawResponse = httpClient.get("$BASE_URL/search") {
+                    header("Authorization", API_KEY)
+                    parameter("query", query)
+                    parameter("page", page)
+                    parameter("per_page", perPage)
+                }
+
+                println("JSON raw: ${rawResponse.bodyAsText()}")
+            } catch (debugException: Exception) {
+                println("Error al obtener JSON raw: ${debugException.message}")
+            }
+            throw e
+        }
     }
 }

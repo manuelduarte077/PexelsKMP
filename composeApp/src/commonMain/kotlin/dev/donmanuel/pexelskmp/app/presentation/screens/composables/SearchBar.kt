@@ -1,6 +1,5 @@
 package dev.donmanuel.pexelskmp.app.presentation.screens.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -27,6 +26,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import pexelskmp.composeapp.generated.resources.Res
 import pexelskmp.composeapp.generated.resources.ic_back
+import pexelskmp.composeapp.generated.resources.ic_rate_us
 
 @Composable
 fun SearchBar() {
@@ -36,23 +36,20 @@ fun SearchBar() {
             .fillMaxWidth()
             .height(40.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(
-                Color.Black
-            )
     ) {
 
         Row(modifier = Modifier) {
             var text by remember { mutableStateOf("") }
 
             Icon(
-                painter = painterResource(Res.drawable.ic_back),
+                painter = painterResource(Res.drawable.ic_rate_us),
                 tint = Color.White,
                 contentDescription = "Search icon",
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .padding(start = 8.dp)
                     .clickable {
-
+                        // Handle back button click
                     }
             )
 

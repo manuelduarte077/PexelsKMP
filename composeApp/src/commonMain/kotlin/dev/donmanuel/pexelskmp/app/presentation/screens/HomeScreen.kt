@@ -8,12 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.donmanuel.pexelskmp.app.presentation.screens.composables.FeatureCard
+import dev.donmanuel.pexelskmp.app.presentation.screens.composables.SearchBar
 import dev.donmanuel.pexelskmp.app.presentation.viewmodel.PhotoViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun HomeScreen() {
-
     val photoViewModel = koinViewModel<PhotoViewModel>()
 
     Column(
@@ -29,6 +29,9 @@ fun HomeScreen() {
             modifier = Modifier.padding(start = 16.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
+
+        SearchBar()
+
         FeatureCard(
             viewModel = photoViewModel,
             title = "Featured Photos"

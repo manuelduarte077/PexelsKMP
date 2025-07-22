@@ -14,6 +14,12 @@ val networkModule = module {
                 json(Json {
                     ignoreUnknownKeys = true
                     isLenient = true
+                    coerceInputValues = true
+                    useArrayPolymorphism = true
+                    encodeDefaults = true
+                    explicitNulls = false
+                    prettyPrint = false
+                    classDiscriminator = "type"
                 })
             }
         }
