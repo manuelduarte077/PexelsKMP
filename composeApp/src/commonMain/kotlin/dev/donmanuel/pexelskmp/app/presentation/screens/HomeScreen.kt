@@ -2,6 +2,7 @@ package dev.donmanuel.pexelskmp.app.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,13 +26,14 @@ fun HomeScreen() {
         Spacer(modifier = Modifier.padding(top = 8.dp))
         Text(
             " Welcome to the Pexel Pexel ",
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = MaterialTheme.typography.headlineMedium.fontWeight,
             modifier = Modifier.padding(start = 16.dp)
         )
         Spacer(modifier = Modifier.height(8.dp))
 
         FeatureCard(
             viewModel = photoViewModel,
-            title = "Featured Photos"
         )
     }
 }

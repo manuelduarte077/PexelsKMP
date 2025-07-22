@@ -79,7 +79,7 @@ fun SplashScreen(onSplashComplete: () -> Unit = {}) {
             Text(
                 text = "KMP Wallpapers",
                 fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(
@@ -88,7 +88,7 @@ fun SplashScreen(onSplashComplete: () -> Unit = {}) {
             Text(
                 text = "Discover wallpapers that adapt, inspire and evolve powered by Don Manuel",
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
+                fontSize = 14.sp,
                 style = TextStyle(
                     textAlign = TextAlign.Center,
                     lineHeight = 16.sp
@@ -113,7 +113,7 @@ fun SplashScreen(onSplashComplete: () -> Unit = {}) {
                 text = "Please wait while data is loading...",
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp
+                fontSize = 14.sp
             )
         }
     }

@@ -33,7 +33,6 @@ import dev.donmanuel.pexelskmp.app.presentation.viewmodel.PhotoViewModel
 @Composable
 fun FeatureCard(
     viewModel: PhotoViewModel,
-    title: String = "Wallpapers"
 ) {
     val viewState by viewModel.viewState.collectAsState()
 
@@ -42,15 +41,6 @@ fun FeatureCard(
     }
 
     Column {
-        Text(
-            text = title,
-            modifier = Modifier
-                .padding(start = 16.dp),
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.padding(top = 8.dp))
-
         when {
             viewState.isLoading && viewState.photos.isEmpty() -> {
                 Box(

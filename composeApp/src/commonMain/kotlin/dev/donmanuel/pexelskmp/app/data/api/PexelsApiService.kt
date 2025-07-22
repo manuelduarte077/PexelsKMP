@@ -10,7 +10,6 @@ import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.SerializationException
 
 class PexelsApiService(private val httpClient: HttpClient) {
-
     companion object {
         const val BASE_URL = "https://api.pexels.com/v1/"
         const val API_KEY = "p6G6FNX7hs9Ncti8OJcDWsdkqBIqtdIBzHrVrboxqrdmlkDAP5iZjq9s"
