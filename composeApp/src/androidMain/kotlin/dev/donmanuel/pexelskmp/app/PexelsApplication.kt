@@ -1,6 +1,7 @@
 package dev.donmanuel.pexelskmp.app
 
 import android.app.Application
+import dev.donmanuel.pexelskmp.app.di.androidServiceModule
 import dev.donmanuel.pexelskmp.app.di.initKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -12,6 +13,7 @@ class PexelsApplication : Application(), KoinComponent {
         initKoin {
             androidLogger()
             androidContext(this@PexelsApplication)
+            modules(androidServiceModule)
         }
     }
 }
